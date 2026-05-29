@@ -1,0 +1,83 @@
+spring:
+  application:
+    name: crypto-semester
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc.time_zone: UTC
+    open-in-view: false
+
+  freemarker:
+    suffix: .ftl
+    cache: false
+    settings:
+      number_format: computer
+      datetime_format: yyyy-MM-dd HH:mm
+      time_zone: UTC
+      template_exception_handler: rethrow
+      incompatible_improvements: "2.3.33"
+
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+
+  cache:
+    type: redis
+    redis:
+      time-to-live: 30s
+      cache-null-values: false
+
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USER}
+    password: ${MAIL_PASS}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+
+server:
+  port: ${SERVER_PORT}
+  error:
+    whitelabel:
+      enabled: false
+    include-stacktrace: never
+    include-message: never
+
+app:
+  coingecko:
+    base-url: ${COINGECKO_BASE_URL}
+    poll-interval-ms: ${COINGECKO_POLL_INTERVAL_MS}
+    request-timeout-ms: ${COINGECKO_REQUEST_TIMEOUT_MS}
+    api-key: ${COINGECKO_API_KEY}
+  mail:
+    from: ${APP_MAIL_FROM}
+    enabled: ${APP_MAIL_ENABLED}
+  security:
+    remember-me-key: ${SECURITY_REMEMBER_ME_KEY}
+    token-validity-second: ${SECURITY_TOKEN_VALIDITY_SECOND}
+
+logging:
+  level:
+    com.itis.cryptotracker: DEBUG
+    org.springframework.security: INFO
+    org.hibernate.SQL: DEBUG
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
